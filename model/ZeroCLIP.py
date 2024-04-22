@@ -76,9 +76,9 @@ class CLIPTextGenerator:
         for param in self.lm_model.parameters():
             param.requires_grad = False
 
-        # Initialize CLIP
-        self.clip, self.clip_preprocess = clip.load("laion/CLIP-ViT-H-14-laion2B-s32B-b79K", device=self.device,
-                                                    download_root=clip_checkpoints, jit=False)
+
+        self.clip = open_clip.load_model("laion/CLIP-ViT-H-14-laion2B-s32B-b79K")
+        self.clip_preprocess = open_clip.load_transform("laion/CLIP-ViT-H-14-laion2B-s32B-b79K")
 
         # Init arguments
         self.target_seq_length = target_seq_length
