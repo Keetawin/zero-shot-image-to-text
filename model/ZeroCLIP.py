@@ -4,6 +4,8 @@ from transformers.models.gpt2 import GPT2LMHeadModel, GPT2Tokenizer
 from transformers.models.gpt_neo import GPTNeoForCausalLM
 import torch
 import clip
+from transformers import CLIPModel
+
 from PIL import Image
 from datetime import datetime
 import sys
@@ -75,8 +77,8 @@ class CLIPTextGenerator:
             param.requires_grad = False
 
         # Initialize CLIP
-        self.clip, self.clip_preprocess = clip.load("openthaigpt/CLIPTextCamembertModelWithProjection", device=self.device,
-                                                    download_root=clip_checkpoints, jit=False)
+        self.clip = CLIPModel.from_pretrained("openai/clip-vit-base-patch32").to(self.device)
+        self.clip_preprocess = AutoProcessor.from_pretrained("openai/clip-vit-base-patch32")
         # convert_models_to_fp32(self.clip)
 
         # Init arguments
