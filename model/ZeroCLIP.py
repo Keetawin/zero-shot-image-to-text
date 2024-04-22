@@ -4,7 +4,7 @@ from transformers.models.gpt2 import GPT2LMHeadModel, GPT2Tokenizer
 from transformers.models.gpt_neo import GPTNeoForCausalLM
 import torch
 import clip
-from transformers import CLIPModel
+from transformers import CLIPModel,AutoProcessor
 
 from PIL import Image
 from datetime import datetime
