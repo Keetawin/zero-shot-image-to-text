@@ -77,7 +77,7 @@ class CLIPTextGenerator:
             param.requires_grad = False
 
         # Initialize CLIP
-        self.clip, self.clip_preprocess = clip.load("ViT-B/32", device=self.device,
+        self.clip, self.clip_preprocess = clip.load("laion/CLIP-ViT-H-14-laion2B-s32B-b79K", device=self.device,
                                                     download_root=clip_checkpoints, jit=False)
 
         # Init arguments
