@@ -77,9 +77,8 @@ class CLIPTextGenerator:
             param.requires_grad = False
 
         # Initialize CLIP
-        self.clip = CLIPModel.from_pretrained("openai/clip-vit-base-patch32").to(self.device)
-        self.clip_preprocess = AutoProcessor.from_pretrained("openai/clip-vit-base-patch32")
-        # convert_models_to_fp32(self.clip)
+        self.clip, self.clip_preprocess = clip.load("ViT-B/32", device=self.device,
+                                                    download_root=clip_checkpoints, jit=False)
 
         # Init arguments
         self.target_seq_length = target_seq_length
