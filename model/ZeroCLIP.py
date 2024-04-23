@@ -5,7 +5,6 @@ from transformers.models.gpt_neo import GPTNeoForCausalLM
 import torch
 import clip
 from transformers import CLIPModel,AutoProcessor
-import open_clip
 from PIL import Image
 from datetime import datetime
 import sys
@@ -61,8 +60,8 @@ class CLIPTextGenerator:
             self.lm_tokenizer = GPT2Tokenizer.from_pretrained('EleutherAI/gpt-neo-125M')
             self.lm_model = GPTNeoForCausalLM.from_pretrained('EleutherAI/gpt-neo-125M', output_hidden_states=True)
         elif lm_model == 'gpt-2':
-            self.lm_tokenizer = GPT2Tokenizer.from_pretrained('openthaigpt/openthaigpt-gpt2-instructgpt-poc-0.0.4')
-            self.lm_model = GPT2LMHeadModel.from_pretrained('openthaigpt/openthaigpt-gpt2-instructgpt-poc-0.0.4', output_hidden_states=True)
+            self.lm_tokenizer = GPT2Tokenizer.from_pretrained('airesearch/WangchanLion7B')
+            self.lm_model = GPT2LMHeadModel.from_pretrained('airesearch/WangchanLion7B', output_hidden_states=True)
             self.context_prefix = self.lm_tokenizer.bos_token
 
         self.lm_model.to(self.device)
@@ -77,8 +76,8 @@ class CLIPTextGenerator:
             param.requires_grad = False
 
 
-        self.clip = open_clip.load_model("laion/CLIP-ViT-H-14-laion2B-s32B-b79K")
-        self.clip_preprocess = open_clip.load_transform("laion/CLIP-ViT-H-14-laion2B-s32B-b79K")
+        self.clip, self.clip_preprocess = clip.load("ViT-B/32", device=self.device,
+                                                    download_root=clip_checkpoints, jit=False)
 
         # Init arguments
         self.target_seq_length = target_seq_length
