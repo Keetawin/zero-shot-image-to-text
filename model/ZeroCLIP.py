@@ -60,8 +60,8 @@ class CLIPTextGenerator:
             self.lm_tokenizer = GPT2Tokenizer.from_pretrained('EleutherAI/gpt-neo-125M')
             self.lm_model = GPTNeoForCausalLM.from_pretrained('EleutherAI/gpt-neo-125M', output_hidden_states=True)
         elif lm_model == 'gpt-2':
-            self.lm_tokenizer = GPT2Tokenizer.from_pretrained('airesearch/WangchanLion7B')
-            self.lm_model = GPT2LMHeadModel.from_pretrained('airesearch/WangchanLion7B', output_hidden_states=True)
+            self.lm_tokenizer = GPT2Tokenizer.from_pretrained('openthaigpt/openthaigpt-gpt2-instructgpt-poc-0.0.4')
+            self.lm_model = GPT2LMHeadModel.from_pretrained('openthaigpt/openthaigpt-gpt2-instructgpt-poc-0.0.4', output_hidden_states=True)
             self.context_prefix = self.lm_tokenizer.bos_token
 
         self.lm_model.to(self.device)
